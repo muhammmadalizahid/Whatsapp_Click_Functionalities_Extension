@@ -6,12 +6,6 @@ A Chrome extension that brings WhatsApp Desktop’s Left-click emoji reactions a
 
 ---
 
-## Live Demo / Screenshot
-
-*Optional: include a screenshot or GIF showing Left-click emoji reactions in action.*
-
----
-
 ## Project Overview
 
 WhatsApp Web lacks some of the intuitive interactions available in the desktop app, such as:
