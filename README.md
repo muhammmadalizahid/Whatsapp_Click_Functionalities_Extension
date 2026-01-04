@@ -69,12 +69,13 @@ This extension replicates desktop-like behavior in the web environment by intell
 
 ## Installation (for personal use)
 
-1. Clone or download this repository  
-2. Open Chrome → Extensions → Developer Mode  
-3. Click **Load unpacked** and select the project folder  
-4. Refresh WhatsApp Web; the extension will automatically start  
-5. Left-click a text message to see emoji reactions (supports emoji-only text)  
-6. Right-click any message or media control (play/download/waveform) to open the message options menu  
+1. Clone or download this repository
+2. Delete the README.md if downloaded
+3. Open Chrome → Extensions → Developer Mode  
+4. Click **Load unpacked** and select the project folder  
+5. Refresh WhatsApp Web; the extension will automatically start  
+6. Left-click a text message to see emoji reactions (supports emoji-only text)  
+7. Right-click any message or media control (play/download/waveform) to open the message options menu  
 
 ---
 
