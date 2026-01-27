@@ -1,9 +1,18 @@
 {
   "manifest_version": 3,
   "name": "WhatsApp Double-Click Reactions",
-  "version": "1.0",
-  "description": "Double-click WhatsApp messages to open reactions (mimics Desktop behavior)",
-  "permissions": [],
+  "version": "1.1",
+  "description": "Desktop-like interactions: click for reactions, smart file downloads, right-click menu",
+  "permissions": [
+    "downloads",
+    "downloads.open"
+  ],
+  "host_permissions": [
+    "https://web.whatsapp.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://web.whatsapp.com/*"],
