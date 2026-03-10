@@ -81,7 +81,7 @@ When you click a file you've downloaded before:
 │  "document.pdf" has already     │
 │  been downloaded.               │
 │                                 │
-│  [Cancel] [Save As] [Open]  ←  │
+│  [Cancel] [Save As] [Open]  ←   │
 └─────────────────────────────────┘
 ```
 
@@ -153,7 +153,7 @@ Expand or collapse the chat list to see more conversations at a glance or focus 
         ┌──────▼────────┐
         │ Chrome APIs   │
         │ & DOM Mutation│
-        └──────────────┘
+        └────────────-──┘
 ```
 
 ### Core Modules
@@ -205,7 +205,7 @@ if (element.closest("[data-id]") has a[download])     → File click
 
 ---
 
-## 📋 Installation
+## Installation
 
 ### For Personal/Development Use
 
@@ -227,6 +227,7 @@ if (element.closest("[data-id]") has a[download])     → File click
 4. **Grant Permissions** (if prompted)
    - Extension requests `downloads` and `downloads.open` permissions
    - Click **Allow**
+   -Refresh WhatsApp (CTRL+R)
 
 5. **Test It Out**
    - Open https://web.whatsapp.com
@@ -234,8 +235,6 @@ if (element.closest("[data-id]") has a[download])     → File click
    - Right-click any message → WhatsApp menu appears
    - Click a file → custom dialog if already downloaded
    - Drag the chat list divider → resize sidebar
-
-**No restart needed — extension auto-activates**
 
 ---
 
@@ -311,18 +310,18 @@ User clicks file/document in chat
 [Query Chrome Downloads API]
   Background service worker searches by filename
          ↓
-      NOT FOUND          ╱            FOUND
-         │             ╱                 │
-         ├─────────────┘                 │
+      NOT FOUND                        FOUND
+         │                               │
+         |                               │
          ↓                               ↓
   [Download normally]          [Show custom dialog]
   Standard browser           ┌─────────────────────┐
-  download to               │ File Already        │
-  Downloads folder          │ Downloaded          │
-                           ├─────────────────────┤
-                           │ [Cancel]            │
-                           │ [Save As] [Open] ←─ │
-                           └─────────────────────┘
+  download to                │ File Already        │
+  Downloads folder           │ Downloaded          │
+                             ├─────────────────────┤
+                             │ [Cancel]            │
+                             │ [Save As] [Open] ←─ │
+                             └─────────────────────┘
 ```
 
 ### Sidebar Resize Flow
