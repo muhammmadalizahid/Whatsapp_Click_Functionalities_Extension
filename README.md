@@ -7,7 +7,7 @@ A powerful Chrome extension that brings the intuitive desktop-like interactions 
 
 ---
 
-## 🎯 Overview
+## Overview
 
 WhatsApp Web lacks key features from the desktop application that improve productivity and user experience:
 
@@ -22,7 +22,7 @@ This extension intelligently replicates desktop behavior while preserving all na
 
 ---
 
-## ✨ Core Features
+## Core Features
 
 ### 1. **Left-Click Emoji Reactions**
 - **Single left-click** on any text message instantly opens the emoji reaction picker
@@ -124,7 +124,7 @@ Expand or collapse the chat list to see more conversations at a glance or focus 
 
 ---
 
-## 🛠️ Technical Architecture
+## Technical Architecture
 
 ### Event-Driven Design
 
@@ -235,11 +235,11 @@ if (element.closest("[data-id]") has a[download])     → File click
    - Click a file → custom dialog if already downloaded
    - Drag the chat list divider → resize sidebar
 
-✅ **No restart needed — extension auto-activates**
+**No restart needed — extension auto-activates**
 
 ---
 
-## ⚙️ How It Works — Deep Dive
+## How It Works — Deep Dive
 
 ### Left-Click Reaction Flow
 
@@ -358,7 +358,7 @@ User releases mouse
 
 ---
 
-## 🔐 Permissions & Safety
+## Permissions & Safety
 
 ### Required Permissions
 
@@ -386,7 +386,7 @@ User releases mouse
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 ```
 wa-dblclick-reactions/
@@ -409,7 +409,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 🚀 Performance Optimizations
+## Performance Optimizations
 
 - ✓ **Passive event listeners** for mousedown/mousemove (capture phase, non-blocking)
 - ✓ **Lazy initialization** — waits for #side to exist before setting up resizer
@@ -423,7 +423,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 🔄 Compatibility
+## Compatibility
 
 | Browser | Support | Notes |
 |---------|---------|-------|
@@ -441,7 +441,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 🧩 Integration with Existing Features
+## Integration with Existing Features
 
 ### Does NOT Break
 - ✓ Text selection, highlighting, and copy-paste
@@ -463,7 +463,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 🐛 Known Limitations & Workarounds
+## Known Limitations & Workarounds
 
 | Limitation | Cause | Workaround |
 |-----------|-------|-----------|
@@ -475,22 +475,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 🔮 Future Roadmap
-
-- [ ] Keyboard shortcuts (e.g., `Alt+E` for quick emoji reaction)
-- [ ] Hover preview of emoji reactions already on the message
-- [ ] Downloaded file preview in the dialog (thumbnail + file size)
-- [ ] "Show in folder" option for quick access to Downloads
-- [ ] Auto-adjust sidebar width on multi-monitor screen size changes
-- [ ] Light/dark mode auto-detection for resizer handle styling
-- [ ] Firefox webextension port (manifest conversion)
-- [ ] Chrome Web Store submission (with proper WhatsApp legal disclaimers)
-- [ ] Pin frequently-used emoji for quick access
-- [ ] Custom reaction keyboard shortcuts per contact
-
----
-
-## 💡 Technical Challenges & Solutions
+## Technical Challenges & Solutions
 
 | Challenge | Root Cause | Solution | Impact |
 |-----------|-----------|----------|--------|
@@ -505,7 +490,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 📝 License & Attribution
+## License & Attribution
 
 - **Author:** Muhammad Ali Zahid
 - **Type:** Personal/Open-Source Chrome Extension
@@ -516,7 +501,7 @@ wa-dblclick-reactions/
 
 ---
 
-## 💬 Feedback & Contributions
+## Feedback & Contributions
 
 Found a bug? Have a feature request? Want to contribute?
 
@@ -540,9 +525,9 @@ Found a bug? Have a feature request? Want to contribute?
 
 ---
 
-## 🙏 Thank You
+## Thank You
 
-Thank you for using **WhatsApp Web Extensions**! We hope this brings you closer to the desktop experience. Your feedback makes this project better. 🎉
+Thank you for using **WhatsApp Web Extensions**! We hope this brings you closer to the desktop experience. Your feedback makes this project better. 
 
 **Happy messaging!** 💬
 
