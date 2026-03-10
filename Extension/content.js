@@ -1104,6 +1104,141 @@
     passive: false,
   });
 
+  // ==========================================
+  // RESIZABLE CHAT LIST PANEL
+  // Mirrors the behaviour of "WhatsApp Web Chat List Resizer" v0.0.8
+  // ==========================================
+
+  // Inject the CSS once.  The ::after pseudo-element on the sidebar parent
+  // acts as the visible drag handle — no extra DOM node needed inside WhatsApp.
+  (function injectResizerStyles() {
+    const STYLE_ID = "wa-ext-resizer-styles";
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement("style");
+    style.id = STYLE_ID;
+    style.textContent = `
+      .xh-resizable-sidebar {
+        position: relative;
+        overflow: auto;
+        min-width: 80px;
+        transition: max-width 0.2s ease-in-out;
+        border-right: 1px solid rgba(var(--WDS-content-default-RGB, 0, 0, 0), 0.1);
+      }
+      .xh-resizable-sidebar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        height: 150px;
+        cursor: ew-resize;
+        z-index: 110;
+        transition: background-color 0.2s ease-in-out;
+      }
+      .xh-resizable-sidebar:hover::after {
+        background-color: rgba(0, 163, 212, 0.5);
+      }
+      .xh-resizable-sidebar.xh-resizing {
+        transition: none;
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+
+  let resizerEl = null;
+  const resizerWidthKey = "xh_sidebar_width";
+  let resizerIsActive = false;
+  let resizerInitMouseX = 0;
+  let resizerInitWidth = 0;
+  const legacyDividerSelector =
+    "#app > div > div > div.x78zum5.xdt5ytf.x5yr21d > div > div.x10l6tqk.x13vifvy.x1o0tod.x78zum5.xh8yej3.x5yr21d.x6ikm8r.x10wlt62.x47corl > div.x9f619.x1n2onr6.x5yr21d.x6ikm8r.x10wlt62.x17dzmu4.x1i1dayz.x2ipvbc.xjdofhw.xyyilfv.x1iyjqo2.xpilrb4.x1t7ytsu.x1vb5itz.x12xzxwr";
+
+  // The original extension clears the chat divider through a long class-chain
+  // selector. We keep the same target plus a structural fallback.
+  function clearChatDividerLine() {
+    const legacyTarget = document.querySelector(legacyDividerSelector);
+    if (legacyTarget) {
+      legacyTarget.style.borderLeft = "0";
+      legacyTarget.style.boxShadow = "none";
+    }
+
+    const chatWrapper = resizerEl?.nextElementSibling;
+    if (chatWrapper) {
+      chatWrapper.style.borderLeft = "0";
+      chatWrapper.style.boxShadow = "none";
+    }
+  }
+
+  function resizerOnMouseDown(event) {
+    const bounds = resizerEl.getBoundingClientRect();
+    // Only activate when the click lands within the rightmost 10 px
+    if (event.clientX >= bounds.right - 10) {
+      resizerIsActive = true;
+      resizerInitMouseX = event.clientX;
+      resizerInitWidth = bounds.width;
+      resizerEl.classList.add("xh-resizing");
+      event.preventDefault(); // prevent text selection during drag
+    }
+  }
+
+  function resizerOnMouseMove(event) {
+    if (!resizerIsActive || !resizerEl) return;
+    const newWidth = resizerInitWidth + (event.clientX - resizerInitMouseX);
+    resizerEl.style.maxWidth = newWidth + "px";
+    localStorage.setItem(resizerWidthKey, newWidth + "px");
+    clearChatDividerLine();
+  }
+
+  function resizerOnMouseUp() {
+    if (!resizerIsActive) return;
+    resizerIsActive = false;
+    if (resizerEl) resizerEl.classList.remove("xh-resizing");
+  }
+
+  // Poll until WhatsApp renders #side, then wire up the resizer exactly
+  // as the reference extension does.
+  const resizerPollInterval = setInterval(() => {
+    const side = document.querySelector("#side");
+    if (!side) return;
+
+    resizerEl = side.parentElement;
+    if (!resizerEl) return;
+
+    resizerEl.classList.add("xh-resizable-sidebar");
+
+    const savedWidth = localStorage.getItem(resizerWidthKey);
+    if (savedWidth) {
+      resizerEl.style.maxWidth = savedWidth;
+    }
+
+    resizerEl.addEventListener("mousedown", resizerOnMouseDown);
+    document.addEventListener("mousemove", resizerOnMouseMove);
+    document.addEventListener("mouseup", resizerOnMouseUp);
+
+    clearChatDividerLine();
+
+    // Also ensure #main fills the remaining flex space as the sidebar resizes.
+    const main = document.getElementById("main");
+    if (main) {
+      main.style.flex = "1 1 0";
+      main.style.minWidth = "0";
+    }
+
+    // WhatsApp can re-apply the divider during initial render cycles.
+    // Re-run the same clearing logic for a short warm-up period.
+    let dividerFixAttempts = 0;
+    const dividerFixInterval = setInterval(() => {
+      clearChatDividerLine();
+      dividerFixAttempts++;
+      if (dividerFixAttempts > 20) {
+        clearInterval(dividerFixInterval);
+      }
+    }, 250);
+
+    clearInterval(resizerPollInterval);
+  }, 1000);
+
   console.log("WhatsApp Click Reactions: Loaded successfully");
   console.log("File download management: Active");
+  console.log("Resizable sidebar: Active");
 })();
